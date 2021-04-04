@@ -26,5 +26,14 @@ export class AuthService {
         };
       }
 
+   async decodeJwt(jwt) {
+        return await  this.jwtService.decode(jwt);
+    }
 
+   async extractUser(header) {
+    const jwtArray = header.authorization.split(" ");
+    const jwt = jwtArray[1];
+
+    return await this.decodeJwt(jwt);
+   }
 }
