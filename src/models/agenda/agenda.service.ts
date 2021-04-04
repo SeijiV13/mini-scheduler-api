@@ -25,13 +25,20 @@ export class AgendaService {
     }
 
     async updateAgenda(updateAgendaDto: UdpdateAgendaDto) {
-        
+      const errors = await validate(updateAgendaDto);
+      if(errors.length > 0) {
+        return of(errors).toPromise();
+      }  
       return this.agendaModel.updateMany({_id: updateAgendaDto.id}, updateAgendaDto).exec();
     }
 
     async getAgendaByUser(user) {
     return this.agendaModel.find({ user}).exec();
 
+    }
+
+    async getAgendaByUserAndDate(user: string , date: string) {
+      return this.agendaModel.find({user, date}).exec();
     }
 
     async getAgenda(id: string) {
