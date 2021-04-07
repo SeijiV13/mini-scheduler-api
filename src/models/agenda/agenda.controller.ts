@@ -56,7 +56,6 @@ export class AgendaController {
      @UseGuards(AuthGuard('jwt'))
      @Delete(":id")
      deleteAgenda(@Param() param) {
-        let agenda = new UdpdateAgendaDto();
         return this.agendaService.deleteAgenda(param.id);
      }
  }
