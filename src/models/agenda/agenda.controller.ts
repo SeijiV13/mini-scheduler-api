@@ -2,7 +2,7 @@ import { AuthService } from './../auth/auth.service';
 import { ValidationError } from 'class-validator';
 import { CreateAgendaDto } from './dto/create-agenda.dto';
 import { AgendaService } from './agenda.service';
-import { Controller, Get, Post, Body, Put, Query, Param, UseGuards, Headers, Header } from "@nestjs/common";
+import { Controller, Get, Post, Body, Put, Query, Param, UseGuards, Headers, Header, Delete } from "@nestjs/common";
 import { Observable, of } from "rxjs";
 import { Agenda } from "./schemas/agenda.schema";
 import { UdpdateAgendaDto } from './dto/update-agenda.dto';
@@ -51,5 +51,12 @@ export class AgendaController {
         let agenda = new UdpdateAgendaDto();
         Object.assign(agenda, updateAgendaDto);
         return this.agendaService.updateAgenda(agenda);
+     }
+
+     @UseGuards(AuthGuard('jwt'))
+     @Delete(":id")
+     deleteAgenda(@Param() param) {
+        let agenda = new UdpdateAgendaDto();
+        return this.agendaService.deleteAgenda(param.id);
      }
  }
