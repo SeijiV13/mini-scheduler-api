@@ -32,6 +32,10 @@ export class AgendaService {
       return this.agendaModel.updateMany({_id: updateAgendaDto.id}, updateAgendaDto).exec();
     }
 
+    async deleteAgenda(id: string) {
+      return this.agendaModel.deleteOne({_id: id}).exec();
+    }
+
     async getAgendaByUser(user) {
     return this.agendaModel.find({ user}).exec();
 
